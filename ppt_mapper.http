@@ -1,0 +1,6 @@
+@ppt_mapper_HostAddress = http://localhost:5100
+
+GET {{ppt_mapper_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
