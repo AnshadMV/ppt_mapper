@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PPT Report Builder</title>
+    <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+    <main class="app-shell">
+        <section class="hero">
+            <p class="eyebrow">Sprint Retrospective PPT Builder</p>
+            <h1>Create the presentation from one simple form</h1>
+            <p class="hero-copy">
+                Fill each section, upload screenshots, and generate the PowerPoint. For point sections,
+                each new line becomes one item in the slide.
+            </p>
+            <div class="hero-notes">
+                <span>Bold default: Off</span>
+                <span>Bullet default: On</span>
+                <a href="/swagger" target="_blank" rel="noreferrer">Open Swagger</a>
+            </div>
+        </section>
+
+        <form id="ppt-form" class="form-stack">
+            <section class="card">
+                <div class="section-head">
+                    <h2>1. Basic Details</h2>
+                    <p>These values appear on the cover slide and sprint headings.</p>
+                </div>
+                <div class="grid-3">
+                    <label class="field">
+                        <span>Title</span>
+                        <input type="text" id="title" placeholder="Retrospective Report - Team Pegasus"  
+                               value="Retrospective Report - Team Pegasus"/>
+
+                        <label class="toggle"><input type="checkbox" id="title-bold" /> <span>Make Bold</span></label>
+                    </label>
+                    <label class="field">
+                        <span>Date</span>
+                        <input type="text" id="date" value="13 May - 20 May 2026" />
+                        <label class="toggle"><input type="checkbox" id="date-bold" /> <span>Make Bold</span></label>
+                    </label>
+                    <label class="field">
+                        <span>Sprint Number</span>
+                        <input type="text" id="sprint-number" value="18" />
+                        <label class="toggle"><input type="checkbox" id="sprint-bold" /> <span>Make Bold</span></label>
+                    </label>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>2. Summary Slides</h2>
+                    <p>One line = one point on the slide.</p>
+                </div>
+                <div class="stack-md">
+                    <div class="simple-block">
+                        <label class="field">
+                            <span>Executive Summary - Sprint at a Glance</span>
+
+                            <div id="page1-points" contenteditable="true" class="editor">Stories Completed     : <b>10</b> out of<b> 11</b>
+Story Points Completed: <b>20 </b>out of <b>21</b>
+Completion            : <b>95%</b>
+Overall Sprint Health : <b>Excellent</b></div>
+                        </label>
+
+                        <div class="toggle-row">
+                            <label class="toggle">
+                                <input type="checkbox" id="page1-bullets" checked />
+                                <span>Show as Bullet Point</span>
+                            </label>
+
+                            <label class="toggle">
+                                <input type="checkbox" id="page1-bold" />
+                                <span>Make all lines Bold</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block">
+                        <label class="field">
+                            <span>What Went Well</span>
+                            <textarea id="page2-points" rows="7" placeholder="Enter one line per point"></textarea>
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="page2-bullets" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="page2-bold" /> <span>Make all lines Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block">
+                        <label class="field">
+                            <span>Challenges Faced</span>
+                            <textarea id="page3-points" rows="7" placeholder="Enter one line per point"></textarea>
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="page3-bullets" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="page3-bold" /> <span>Make all lines Bold</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>3. Table Slides</h2>
+                    <p>Fill the cells directly like the PPT risk table. Both slides use the same headings with different row content.</p>
+                </div>
+                <div class="stack-md">
+                    <div class="simple-block">
+                        <div class="table-block__head">
+                            <div>
+                                <span class="table-title">Table 1</span>
+                                <p>Rows 1 to 4</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="page4-bold" /> <span>Make all Table 1 values Bold</span></label>
+                        </div>
+                        <div class="table-scroll">
+                            <div id="page4-table"></div>
+                        </div>
+                    </div>
+
+                    <div class="simple-block">
+                        <div class="table-block__head">
+                            <div>
+                                <span class="table-title">Table 2</span>
+                                <p>Rows 5 to 8</p>
+                            </div>
+                            <label class="toggle"><input type="checkbox" id="page5-bold" /> <span>Make all Table 2 values Bold</span></label>
+                        </div>
+                        <div class="table-scroll">
+                            <div id="page5-table"></div>
+                        </div>
+                        <p class="table-note">This slide uses the same headings as Table 1 and stores a separate continuation of the risk entries.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>4. Metrics</h2>
+                    <p>Fill the matrix like the slide. The sample values from your image are shown as placeholders.</p>
+                </div>
+                <div class="stack-md">
+                    <div class="simple-block">
+                        <div class="table-block__head">
+                            <div>
+                                <span class="table-title">Matrices Slide</span>
+                                <p>Client utilization, effort hours, sprint metrics, and effort split-up.</p>
+                            </div>
+                            <div class="table-toggle-stack">
+                                <label class="toggle"><input type="checkbox" id="numeric-bold" /> <span>Make all numeric values Bold</span></label>
+                                <label class="toggle"><input type="checkbox" id="percentage-bold" /> <span>Make all percentage values Bold</span></label>
+                            </div>
+                        </div>
+
+                        <div class="matrix-grid">
+                            <div class="matrix-panel matrix-panel--client">
+                                <h3>Client wise effort utilization in hours</h3>
+                                <table class="matrix-table matrix-table--compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Client</th>
+                                            <th>Utilization</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Naufar</td>
+                                            <td><input type="text" id="num-13" placeholder="0" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>KIMS GCC</td>
+                                            <td><input type="text" id="num-14" placeholder="305" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="matrix-panel matrix-panel--effort">
+                                <h3>Area wise efforts in hours</h3>
+                                <table class="matrix-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Area</th>
+                                            <th>Planned</th>
+                                            <th>Actual</th>
+                                            <th>Deviation</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Development</td>
+                                            <td><input type="text" id="num-1" placeholder="305" /></td>
+                                            <td><input type="text" id="num-5" placeholder="281" /></td>
+                                            <td><input type="text" id="num-9" placeholder="24" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Testing</td>
+                                            <td><input type="text" id="num-2" placeholder="87" /></td>
+                                            <td><input type="text" id="num-6" placeholder="87" /></td>
+                                            <td><input type="text" id="num-10" placeholder="0" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bug Fixing</td>
+                                            <td><input type="text" id="num-3" placeholder="0" /></td>
+                                            <td><input type="text" id="num-7" placeholder="0" /></td>
+                                            <td><input type="text" id="num-11" placeholder="0" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Documentation</td>
+                                            <td><input type="text" id="num-4" placeholder="4" /></td>
+                                            <td><input type="text" id="num-8" placeholder="4" /></td>
+                                            <td><input type="text" id="num-12" placeholder="0" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="matrix-panel matrix-panel--summary">
+                                <h3>Sprint metrics</h3>
+                                <div class="metric-summary-list">
+                                    <label class="metric-summary-row">
+                                        <span>Sprint velocity</span>
+                                        <input type="text" id="num-15" placeholder="20" />
+                                    </label>
+                                    <div class="metric-summary-row metric-summary-row--double">
+                                        <span>Story points committed vs completed</span>
+                                        <div class="metric-double-inputs">
+                                            <input type="text" id="num-16" placeholder="20" />
+                                            <span>out of</span>
+                                            <input type="text" id="num-17" placeholder="21" />
+                                        </div>
+                                    </div>
+                                    <label class="metric-summary-row">
+                                        <span>Defect count</span>
+                                        <input type="text" id="num-19" placeholder="3" />
+                                    </label>
+                                    <label class="metric-summary-row">
+                                        <span>Defect Density</span>
+                                        <input type="text" id="num-20" placeholder="0" />
+                                    </label>
+                                    <label class="metric-summary-row">
+                                        <span>Deployment frequency</span>
+                                        <input type="text" id="num-21" placeholder="10" />
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="matrix-panel matrix-panel--split">
+                                <h3>Efforts split-up Discipline wise</h3>
+                                <table class="matrix-table matrix-table--compact">
+                                    <thead>
+                                        <tr>
+                                            <th>Area</th>
+                                            <th>Effort (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Development</td>
+                                            <td><input type="text" id="perc-1" placeholder="66%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Testing</td>
+                                            <td><input type="text" id="perc-2" placeholder="19%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Bug Fixing</td>
+                                            <td><input type="text" id="perc-3" placeholder="0%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Code Review</td>
+                                            <td><input type="text" id="perc-4" placeholder="3%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Documentation</td>
+                                            <td><input type="text" id="perc-5" placeholder="0%" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Meetings/Plannings</td>
+                                            <td><input type="text" id="perc-6" placeholder="12%" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="matrix-panel matrix-panel--bottom">
+                                <div class="metric-summary-list">
+                                    <label class="metric-summary-row">
+                                        <span>Sprint wise/Month wise resource utilization</span>
+                                        <input type="text" id="perc-7" placeholder="464 hours(100%)" />
+                                    </label>
+                                    <label class="metric-summary-row">
+                                        <span>% of team fully set up with VS Code and Copilot</span>
+                                        <input type="text" id="perc-8" placeholder="100" />
+                                    </label>
+                                </div>
+                                <p class="matrix-static-note">
+                                    Template note: "Real examples of Copilot usage or value seen" and "% of AGILE adoption status"
+                                    remain part of the slide design and are not separate mapped placeholders in the current backend.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>5. Images</h2>
+                    <p>Add as many image fields as needed, similar to Swagger. All selected files will be sent to the backend.</p>
+                </div>
+                <div class="field">
+                    <span>Screenshots</span>
+                    <div id="image-input-list" class="image-input-list"></div>
+                    <button type="button" id="add-image-input" class="button button-outline">Add Another Image</button>
+                </div>
+                <div id="image-upload-status" class="upload-status">No images selected.</div>
+                <div id="image-upload-list" class="upload-list" aria-live="polite"></div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>6. Action Plan Slides</h2>
+                    <p>One line = one action item.</p>
+                </div>
+                <div class="stack-md">
+                    <div class="simple-block">
+                        <label class="field">
+                            <span>Action Plan - Slide 1</span>
+                            <textarea id="page6-points" rows="7" placeholder="Enter one line per point"></textarea>
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="page6-bullets" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="page6-bold" /> <span>Make all lines Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block">
+                        <label class="field">
+                            <span>Action Plan - Slide 2</span>
+                            <textarea id="page7-points" rows="7" placeholder="Enter one line per point"></textarea>
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="page7-bullets" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="page7-bold" /> <span>Make all lines Bold</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <h2>7. Next Sprint Summary</h2>
+                    <p>Use the toggles if you want bold text or plain text instead of bullets.</p>
+                </div>
+                <div class="grid-2">
+                    <div class="simple-block next-item">
+                        <label class="field">
+                            <span>Total Stories Committed</span>
+                            <input type="text" id="total-stories-committed" />
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="total-stories-committed-bullet" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="total-stories-committed-bold" /> <span>Make Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block next-item">
+                        <label class="field">
+                            <span>Total Story Points</span>
+                            <input type="text" id="total-story-points" />
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="total-story-points-bullet" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="total-story-points-bold" /> <span>Make Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block next-item">
+                        <label class="field">
+                            <span>New User Stories</span>
+                            <input type="text" id="new-user-stories" />
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="new-user-stories-bullet" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="new-user-stories-bold" /> <span>Make Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block next-item">
+                        <label class="field">
+                            <span>Spillover Stories</span>
+                            <input type="text" id="spillover-stories" />
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="spillover-stories-bullet" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="spillover-stories-bold" /> <span>Make Bold</span></label>
+                        </div>
+                    </div>
+
+                    <div class="simple-block next-item next-item--full">
+                        <label class="field">
+                            <span>Agile Ceremony / Process Item</span>
+                            <input type="text" id="agile-ceremony-process-item" />
+                        </label>
+                        <div class="toggle-row">
+                            <label class="toggle"><input type="checkbox" id="agile-ceremony-process-item-bullet" checked /> <span>Show as Bullet Point</span></label>
+                            <label class="toggle"><input type="checkbox" id="agile-ceremony-process-item-bold" /> <span>Make Bold</span></label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="action-bar">
+                <div class="action-copy">
+                    <h2>Generate PowerPoint</h2>
+                    <p>Submit the form and the `.pptx` file will download automatically.</p>
+                </div>
+                <div class="action-buttons">
+                    <button type="button" id="sample-fill" class="button button-secondary">Fill Sample Data</button>
+                    <button type="reset" class="button button-secondary">Reset</button>
+                    <button type="submit" id="submit-button" class="button button-primary">Generate PPTX</button>
+                </div>
+            </section>
+        </form>
+
+        <div class="status-wrap">
+            <div id="status-banner" class="status status-idle">Ready to generate your PPT report.</div>
+        </div>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>

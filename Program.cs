@@ -1,4 +1,4 @@
-﻿using ppt_mapper.Services;
+using ppt_mapper.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +9,19 @@ builder.Services.AddScoped<PptService>();
 var app = builder.Build();
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.RoutePrefix = "swagger";
+});
 
-app.UseHttpsRedirection();
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseAuthorization();
 
 app.MapControllers();
